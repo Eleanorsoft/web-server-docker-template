@@ -6,7 +6,7 @@ __prefix___nginx:
         - __prefix___php
     volumes_from:
         - __prefix___app
-    restart: always
+    restart: unless-stopped
 
 __prefix___php:
     build: ./php/
@@ -16,14 +16,14 @@ __prefix___php:
         - __prefix___mysql
     volumes_from:
         - __prefix___app
-    restart: always
+    restart: unless-stopped
 
 __prefix___app:
     image: busybox
     volumes:
         - ./www/html:/var/www/html:z
         - ./data:/var/hook
-    restart: always
+    restart: unless-stopped
     command: "tail -f /var/hook/file.txt"
 
 __prefix___mysql:
@@ -35,14 +35,14 @@ __prefix___mysql:
         MYSQL_DATABASE: __dbname__
         MYSQL_USER: __dbname__
         MYSQL_PASSWORD: "secret_db_password"
-    restart: always
+    restart: unless-stopped
 
 __prefix___data:
     image: busybox
     volumes:
         - ./mysql:/var/lib/mysql
         - ./data:/var/hook
-    restart: always
+    restart: unless-stopped
     command: "tail -f /var/hook/file.txt"
 
 __prefix___phpmyadmin:
@@ -53,7 +53,7 @@ __prefix___phpmyadmin:
         - __prefix___mysql
     environment:
         PMA_HOST: __prefix___mysql
-    restart: always
+    restart: unless-stopped
 
 __prefix___ftp:
     image: atmoz/sftp
@@ -61,5 +61,5 @@ __prefix___ftp:
         - "5014:22"
     volumes:
         - ./www/html:/home/__prefix__/html
-    restart: always
+    restart: unless-stopped
     command: __prefix__:__secret_sftp_password__:33:33
