@@ -56,7 +56,7 @@ __prefix___phpmyadmin:
     restart: unless-stopped
 
 __prefix___ftp:
-    image: atmoz/sftp
+    build: ./sftp/
     ports:
         - "5014:22"
     volumes:
