@@ -12,6 +12,8 @@ __prefix___php:
     build: ./php/
     expose:
         - 9000
+    ports:
+        - "5012:22"
     links:
         - __prefix___mysql
     volumes_from:
