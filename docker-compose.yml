@@ -65,3 +65,6 @@ __prefix___ftp:
         - ./www/html:/home/__prefix__/html
     restart: unless-stopped
     command: __prefix__:__secret_sftp_password__:33:33
+__prefix___redis:
+    image: redis
+    restart: unless-stopped
