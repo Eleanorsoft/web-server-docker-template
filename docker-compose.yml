@@ -16,6 +16,7 @@ __prefix___php:
         - "5012:22"
     links:
         - __prefix___mysql
+        - __prefix___redis
     volumes_from:
         - __prefix___app
     restart: unless-stopped
